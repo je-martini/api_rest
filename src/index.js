@@ -1,26 +1,12 @@
-const URL = `https://api.thecatapi.com/v1/images/search`;
+const API_URL = `https://api.thecatapi.com/v1/images/search`;
 
+async function reload() {
+    const res = await fetch(API_URL);
+    const data = await res.json();
 
-    fetch(URL)
-        .then(res => res.json())
-        .then(data => {
-        const img = document.querySelector('img');
-        img.src = data[0].url
-        })
+    const img = document.querySelector('img');
+    img.src = data[0].url
+}
 
-
-const button = document.createElement('button');
-button.innerText = 'recargar'
-
-document.body.append(button);
-
-button.addEventListener('click', () => {
-    fetch(URL)
-        .then(res => res.json())
-        .then(data => {
-        const img = document.querySelector('img');
-        img.src = data[0].url
-        })
-})
-
+reload();
 
