@@ -2,6 +2,8 @@ const API_URL_RANDOM = `https://api.thecatapi.com/v1/images/search?limit=3&api_k
 
 const API_URL_FAVOURITES = `https://api.thecatapi.com/v1/favourites?&api_key=live_sqpsENmpAyvX0fYFNDybBeUHdldOJYrBdy3666fkep6Po2Dp3db9YiYEPE17XOLs`;
 
+const API_URL_FAVOURITES_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}?&api_key=live_sqpsENmpAyvX0fYFNDybBeUHdldOJYrBdy3666fkep6Po2Dp3db9YiYEPE17XOLs`;
+
 const span_error = document.getElementById('error');
 
 async function load_random_michis() {
@@ -34,13 +36,20 @@ async function load_fav_michis() {
     if (res.status !== 200){
         span_error.innerText = `Hubo un error: ${res.status} ${data.message}`;
     } else{
+        const section = document.querySelector('#favourites_michis')
+        section.innerHTML = '';
+        const h2 = document.createElement('h2');
+        const h2_text = document.createTextNode('Michis Favourites');
+        h2.append(h2_text);
+        section.append(h2)
+
         data.forEach(michi => {
-            const section = document.querySelector('#favourites_michis')
             const article = document.createElement('article')
             const img = document.createElement('img')
             const button = document.createElement('button')
-            const button_text = document.createTextNode('sacar al michi de favoritos');
+            const button_text = document.createTextNode('Remove michi from favourites');
             button.append(button_text);
+            button.onclick = () => remove_fav_michi(michi.id);
             img.src = michi.image.url
             img.width = 150;
             article.append(img);
@@ -68,6 +77,24 @@ async function save_fav_michi(id) {
 
     if (res.status !== 200){
         span_error.innerText = `Hubo un error: ${res.status} ${data.message}`;
+    } else {
+        console.log(`Michis has been save it`);
+        load_fav_michis();
+    }
+}
+
+async function remove_fav_michi(id){
+    const res = await fetch(API_URL_FAVOURITES_DELETE(id), {
+        method : 'DELETE',
+    });
+    
+    const data = await res.json();
+
+    if (res.status !== 200){
+        span_error.innerText = `Hubo un error: ${res.status} ${data.message}`;
+    } else {
+        console.log(`Michis has been delete it`);
+        load_fav_michis();
     }
 }
 
