@@ -8,9 +8,28 @@
     <script src="./index.js" defer></script>
     <title>API</title>
 </head>
-<body>
+<body>  
     <h1>hi</h1>
-    <img width="320px" height="320px" alt="image">
-    <button onclick="reload()">Reload</button>
+    <span id="error"></span>
+    
+    <section id="random_michis">
+        <h2>Random Michis</h2>
+        <article>
+            <img id="img0" width="320px" height="320px" alt="image">
+            <button id="save_michi"> Save michiiis</button>
+        </article>
+
+        <button onclick="load_random_michis()">Reload</button>
+    
+    </section>
+
+    <section id="favourites_michis">
+        <h2>Michis Favourites </h2>
+        <article>
+            <img id="img0" width="320px" height="320px" alt="image">
+            <button> Remove michi</button>
+        </article>
+    </section>
+    
 </body>
 </html>
