@@ -1,8 +1,8 @@
 const API_URL_RANDOM = `https://api.thecatapi.com/v1/images/search?limit=3&api_key=live_sqpsENmpAyvX0fYFNDybBeUHdldOJYrBdy3666fkep6Po2Dp3db9YiYEPE17XOLs`;
 
-const API_URL_FAVOURITES = `https://api.thecatapi.com/v1/favourites?&api_key=live_sqpsENmpAyvX0fYFNDybBeUHdldOJYrBdy3666fkep6Po2Dp3db9YiYEPE17XOLs`;
+const API_URL_FAVOURITES = `https://api.thecatapi.com/v1/favourites`;
 
-const API_URL_FAVOURITES_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}?&api_key=live_sqpsENmpAyvX0fYFNDybBeUHdldOJYrBdy3666fkep6Po2Dp3db9YiYEPE17XOLs`;
+const API_URL_FAVOURITES_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}`;
 
 const span_error = document.getElementById('error');
 
@@ -27,7 +27,14 @@ async function load_random_michis() {
 }
 
 async function load_fav_michis() {
-    const res = await fetch(API_URL_FAVOURITES);
+    const res = await fetch(API_URL_FAVOURITES, {
+        method : 'GET',
+        headers : {
+            'X-API-KEY': 'live_sqpsENmpAyvX0fYFNDybBeUHdldOJYrBdy3666fkep6Po2Dp3db9YiYEPE17XOLs',
+        },
+
+    }
+        );
     const data = await res.json();
 
     console.log('fav');
@@ -64,6 +71,7 @@ async function save_fav_michi(id) {
     const res = await fetch(API_URL_FAVOURITES, {
         method : 'POST',
         headers : {
+            'X-API-KEY': 'live_sqpsENmpAyvX0fYFNDybBeUHdldOJYrBdy3666fkep6Po2Dp3db9YiYEPE17XOLs',
             'Content-Type' : 'application/json',
         },
         body : JSON.stringify({
