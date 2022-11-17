@@ -106,6 +106,11 @@ async function remove_fav_michi(id){
     }
 }
 
+async function upload_michis_photo() {
+    const form = document.getElementById('upload_file_form');
+    const form_data = new FormData(form);    
+    console.log(form_data.get('file'))
+}
 load_random_michis();
 load_fav_michis();
 
